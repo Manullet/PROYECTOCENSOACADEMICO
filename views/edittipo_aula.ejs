@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    
+    <% if(tipo_aula) { %>
+        <div class="container mt-5">
+            
+            <h2 class="mb-4"> Editar clase </h2>
+            <form action="/editupdatetipo_aula/<%= tipo_aula.id_tipo_aula %>" method="POST">
+        
+                <div class="form-group">
+                    <label for="nombre_clase"> Tipo Aula</label>
+                    <!-- Agrega un campo select para seleccionar el tipo de usuario -->
+                    <select class="form-control" id="nombre_clase" name="nombre_clase">
+                        <option value="">Seleccione Su tipo de Aula</option>
+                        <option value="Aula" <%= tipo_aula.nombre_tipo_aula == 'Aula' ? 'selected' : '' %>>Aula</option>
+                        <option value="Laboratorio " <%= tipo_aula.nombre_tipo_aula == 'la' ? 'selected' : '' %>>Laboratorio</option>
+                        <option value="Auditurioum " <%= tipo_aula.nombre_tipo_aula == 'Aula' ? 'selected' : '' %>>Auditurioum</option>
+                        <option value="Salon Multimedia" <%= tipo_aula.nombre_tipo_aula == 'Auditurioum' ? 'selected' : '' %>>Auditurioum</option>
+                        
+                    </select>
+                </div>
+                <a href="/mostrartipo_aula" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Actualizar</button>   
+        
+            </form>
+        </div>
+        <% } %>
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

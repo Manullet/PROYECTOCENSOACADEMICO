@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    
+    <% if(tipcen) { %>
+        <div class="container mt-5">
+        
+            <h2 class="mb-4"> Editar Tipo Censo </h2>
+            <form action="/editupdatetipocenso/<%= tipcen.id_tipo_censo %>" method="POST">
+        
+                <div class="form-group">
+                    <label for="id_tipo_censo">tipo censo</label>
+                    <input type="text" class="form-control" id="id_tipo_censo" name="id_tipo_censo" value="<%= tipcen.id_tipo_censo %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombre_tipo_censo">Tipo Censo</label>
+                    <!-- Agrega un campo select para seleccionar el tipo de usuario -->
+                    <select class="form-control" id="nombre_tipo_censo" name="nombre_tipo_censo">
+                        <option value="">Seleccione Tipo de Censo</option>
+                        <option value="Abierto" <%= tipcen.nombre_tipo_censo == 'Abierto' ? 'selected' : '' %>>Abierto</option>
+                        <option value="Cerrado" <%= tipcen.nombre_tipo_censo == 'Cerrado' ? 'selected' : '' %>>Cerrado</option>
+                    </select>
+                </div>
+                <a href="/mostrartipocenso" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Actualizar</button>   
+        
+            </form>
+        </div>
+        <% } %>
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

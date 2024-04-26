@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Registrar Aula</h2>
+        <form action="/AulasCreate" method="POST" onsubmit="return validarFormulario()">
+            <div class="form-group">
+                <label for="numero_aula">Nombre/Numero de Aula</label>
+                <input type="number" class="form-control" id="numero_aula" name="numero_aula" required>
+                <div id="numeroAulaError" class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="capacidad">Capacidad</label>
+                <input type="number" class="form-control" id="capacidad" name="capacidad" required>
+                <div id="capacidadError" class="invalid-feedback"></div>
+            </div>
+            <br>
+            <a href="/mostrar_aulas" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+    
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Función para validar el formulario en tiempo real
+        function validarFormulario() {
+            var numeroAula = document.getElementById("numero_aula");
+            var capacidad = document.getElementById("capacidad");
+
+            // Validación de Numero de Aulas
+            if (numeroAula.value <= 0) {
+                numeroAula.classList.add("is-invalid");
+                document.getElementById("numeroAulaError").textContent = "El número de aulas debe ser mayor que cero.";
+            } else {
+                numeroAula.classList.remove("is-invalid");
+                document.getElementById("numeroAulaError").textContent = "";
+            }
+
+            // Validación de Capacidad
+            if (capacidad.value <= 0) {
+                capacidad.classList.add("is-invalid");
+                document.getElementById("capacidadError").textContent = "La capacidad debe ser mayor que cero.";
+            } else {
+                capacidad.classList.remove("is-invalid");
+                document.getElementById("capacidadError").textContent = "";
+            }
+
+            return !(numeroAula.classList.contains("is-invalid") || capacidad.classList.contains("is-invalid"));
+        }
+
+        // Event listeners para validar en tiempo real
+        document.getElementById("numero_aula").addEventListener("input", validarFormulario);
+        document.getElementById("capacidad").addEventListener("input", validarFormulario);
+    </script>
+</body>
+</html>

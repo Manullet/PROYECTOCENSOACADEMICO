@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <% if(persona) { %>
+    <div class="container mt-5">
+
+        <h2 class="mb-4"> Editar Persona </h2>
+        <form action="/epersonas/<%= persona.id_persona %>" method="POST">
+
+            
+            <div class="form-group">
+                <label for="id_persona">ID Persona</label>
+                <input type="text" class="form-control" id="id_persona" name="id_persona"
+                    value="<%= persona.id_persona %>" required>
+            </div>
+
+           
+            <div class="form-group">
+                <label for="tipo_documento">Tipo Documento</label>
+                <select class="form-control" id="tipo_documento" name="tipo_documento" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="DNI" <%= persona.tipo_documento === 'DNI' ? 'selected' : '' %>>DNI</option>
+                    <option value="Pasaporte" <%= persona.tipo_documento === 'Pasaporte' ? 'selected' : '' %>>Pasaporte</option>
+                </select>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="numero_documento">Número Documento</label>
+                <input type="text" class="form-control" id="numero_documento" name="numero_documento"
+                    value="<%= persona.numero_documento %>" required>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="nombres_persona">Nombres Persona</label>
+                <input type="text" class="form-control" id="nombres_persona" name="nombres_persona"
+                    value="<%= persona.nombres_persona %>" required>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="apellidos_persona">Apellidos Persona</label>
+                <input type="text" class="form-control" id="apellidos_persona" name="apellidos_persona"
+                    value="<%= persona.apellidos_persona %>" required>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento"
+                    value="<%= persona.fecha_nacimiento %>" required>
+            </div>
+
+           
+            <div class="form-group">
+                <label for="genero">Género</label>
+                <select class="form-control" id="genero" name="genero" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="Masculino" <%= persona.genero === 'Masculino' ? 'selected' : '' %>>Masculino</option>
+                    <option value="Femenina" <%= persona.genero === 'Femenina' ? 'selected' : '' %>>Femenina</option>
+                </select>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input type="text" class="form-control" id="direccion" name="direccion" value="<%= persona.direccion %>" required>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" value="<%= persona.telefono %>" required>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="nombre_carrera">Nombre Carrera</label>
+                <select class="form-control" id="nombre_carrera" name="nombre_carrera" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="Informatica Administrativa" <%= persona.nombre_carrera === 'Informatica Administrativa' ? 'selected' : '' %>>Informatica Administrativa</option>
+                    <option value="Ingenieria En Sistema" <%= persona.nombre_carrera === 'Ingenieria En Sistema' ? 'selected' : '' %>>Ingenieria En Sistema</option>
+                    <option value="Medicina" <%= persona.nombre_carrera === 'Medicina' ? 'selected' : '' %>>Medicina</option>
+                    <option value="Arquitectura" <%= persona.nombre_carrera === 'Arquitectura' ? 'selected' : '' %>>Arquitectura</option>
+                    <option value="Español" <%= persona.nombre_carrera === 'Español' ? 'selected' : '' %>>Español</option>
+                    <option value="Matematicas" <%= persona.nombre_carrera === 'Matematicas' ? 'selected' : '' %>>Matematicas</option>
+                </select>
+            </div>
+
+           
+            <div class="form-group">
+                <label for="nombre_universidad">Nombre Universidad</label>
+                <select class="form-control" id="nombre_universidad" name="nombre_universidad" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="UNAH" <%= persona.nombre_universidad === 'UNAH' ? 'selected' : '' %>>UNAH</option>
+                    <option value="Catolica" <%= persona.nombre_universidad === 'Catolica' ? 'selected' : '' %>>Catolica</option>
+                    <option value="UPNFM" <%= persona.nombre_universidad === 'UPNFM' ? 'selected' : '' %>>UPNFM</option>
+                    <option value="UTH" <%= persona.nombre_universidad === 'UTH' ? 'selected' : '' %>>UTH</option>
+                    <option value="CEUTEC" <%= persona.nombre_universidad === 'CEUTEC' ? 'selected' : '' %>>CEUTEC</option>
+                </select>
+            </div>
+
+            
+            <a href="/mostrar_personas" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+
+        </form>
+    </div>
+    <% } %>
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

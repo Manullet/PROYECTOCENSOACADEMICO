@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4"> Nueva Solicitud </h2>
+        <form id="form" action="/SolicitudCreate" method="POST">
+                
+                <input type="hidden" id="id_solicitud" name="id_solicitud" value="1">
+                <input type="hidden" id="cupo" name="cupo" value="1">    
+                <input type="hidden" class="form-control" id="id_usuario" name="id_usuario" onload="DOMContentLoaded()">
+                <input type="hidden" class="form-control" id="id_universidad" name="id_universidad" onload="DOMContentLoaded()">
+                <div class="form-group">
+                    <label for="id_clase">nombre_clase</label>
+                    <select class="form-control" id="id_clase" name="id_clase" onload="DomContentLoaded1()" required>
+                        <!-- Las opciones se llenarán dinámicamente -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="hora_inicial">Hora de Inicial</label>
+                    <input type="time" class="form-control" id="hora_inicial" name="hora_inicial" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="hora_final">Hora de Final</label>
+                    <input type="time" class="form-control" id="hora_final" name="hora_final" required readonly>
+                </div>
+                
+                <script>
+                   document.getElementById('hora_inicial').addEventListener('change', function() {
+    var horaInicial = this.value;
+    var partesHoraInicial = horaInicial.split(':');
+    var horasIniciales = parseInt(partesHoraInicial[0], 10);
+    var minutosIniciales = parseInt(partesHoraInicial[1], 10);
+
+    // Redondea los minutos al múltiplo de 60 más cercano
+    var minutosRedondeados = Math.round(minutosIniciales / 60) * 60;
+
+    // Asegurarse de que el formato de la hora sea correcto
+    var horaInicialFormateada = horasIniciales.toString().padStart(2, '0') + ':' + minutosRedondeados.toString().padStart(2, '0');
+    this.value = horaInicialFormateada; // Actualiza el valor del campo hora_inicial
+
+    // Suma 1 hora a la hora inicial redondeada
+    var horasFinales = (horasIniciales + 1) % 24; // Usa el operador módulo para asegurar que las horas estén en el rango correcto
+    var minutosFinales = minutosRedondeados;
+
+    // Asegurarse de que el formato de la hora sea correcto
+    var horaFinalFormateada = horasFinales.toString().padStart(2, '0') + ':' + minutosFinales.toString().padStart(2, '0');
+    document.getElementById('hora_final').value = horaFinalFormateada;
+});
+                </script>
+                <script>
+                    document.getElementById('hora_inicial').addEventListener('change', function() {
+    var horaInicial = this.value;
+    var partesHoraInicial = horaInicial.split(':');
+    var horasIniciales = parseInt(partesHoraInicial[0], 10);
+    var minutosIniciales = parseInt(partesHoraInicial[1], 10);
+
+    // Verifica si la hora inicial está dentro del rango permitido
+    if (horasIniciales < 6 || horasIniciales >= 21) {
+        alert('La hora de inicial debe estar entre las 6:00 AM y las 9:00 PM.');
+        this.value = ''; // Limpia el campo de la hora inicial
+        return; // Detiene la ejecución de la función
+    }
+
+    // Suma 1 hora a la hora inicial
+    var horasFinales = (horasIniciales + 1) % 24; // Usa el operador módulo para asegurar que las horas estén en el rango correcto
+    var minutosFinales = minutosIniciales;
+
+    // Asegurarse de que el formato de la hora sea correcto
+    var horaFinalFormateada = horasFinales.toString().padStart(2, '0') + ':' + minutosFinales.toString().padStart(2, '0');
+    document.getElementById('hora_final').value = horaFinalFormateada;
+});
+
+                </script>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        fetch('/mostrar_clases1')
+                            .then(response => response.json())
+                            .then(Clases => {
+                                var selectClase = document.getElementById('id_clase');
+                                Clases.forEach(Clase => {
+                                    var option = document.createElement('option');
+                                    option.value = Clase.id_clase;
+                                    option.text = Clase.nombre_clase;
+                                    selectClase.appendChild(option);
+                                });
+                            })
+                            .catch(error => {
+                                console.error('Error al cargar las clases:', error);
+                                alert('No se pudieron cargar las clases. Por favor, intente de nuevo más tarde.');
+                            });
+                    });
+                    </script>
+                    <script>
+                        function getCookie(name) {
+                         const value = `; ${document.cookie}`;
+                         const parts = value.split(`; ${name}=`);
+                         if (parts.length === 2) return parts.pop().split(';').shift();
+                        }
+                        
+                        document.addEventListener('DOMContentLoaded', (event) => {
+                         const userInfoString = getCookie('userInfo');
+                         console.log('userInfoString:', userInfoString); // Agrega esta línea para verificar el valor de userInfoString
+                         if (userInfoString) {
+                            try {
+                              const userInfo = JSON.parse(decodeURIComponent(userInfoString));
+                              console.log('userInfo:', userInfo); // Agrega esta línea para verificar el valor de userInfo
+                              document.getElementById('id_usuario').value = userInfo.id_usuario;
+                              document.getElementById('id_universidad').value = userInfo.id_universidad;
+                            } catch (error) {
+                              console.error('Error al parsear la cadena de texto como JSON:', error);
+                            }
+                         }
+                        });
+                        </script>
+                        <script>
+                            $.ajax({
+    url: '/solicitudcreateA', // Asegúrate de reemplazar esto con la ruta correcta a tu endpoint
+    type: 'POST',
+    data: JSON.stringify({
+        id_clase: id_clase,
+        id_universidad: id_universidad,
+        hora_inicial: hora_inicial,
+        hora_final: hora_final,
+        cupo: cupo,
+        id_usuario: id_usuario
+    }),
+    contentType: 'application/json',
+    success: function(data) {
+        // Aquí manejarías la respuesta exitosa
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        if (jqXHR.status === 400) {
+            // Intenta parsear el mensaje de error del servidor
+            var errorMessage = JSON.parse(jqXHR.responseText).error;
+            // Muestra el mensaje de error como un alerta
+            alert(errorMessage);
+        } else {
+            // Maneja otros errores
+            console.error('Error:', textStatus, errorThrown);
+        }
+    }
+});
+
+                        </script>
+               
+      
+           
+            <a href="/Solicitud" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

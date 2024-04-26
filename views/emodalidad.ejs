@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <% if(modalidad) { %>
+    <div class="container mt-5">
+
+        <h2 class="mb-4"> Editar Modalidad </h2>
+        <form action="/emodalidad/<%= modalidad.id_modalidad %>" method="POST">
+
+            <div class="form-group">
+                <label for="id_modalidad">Código de la Modalidad</label>
+                <input type="text" class="form-control" id="id_modalidad" name="id_modalidad"
+                    value="<%= modalidad.id_modalidad %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre_modalidad">Modalidad</label>
+                
+
+                <select class="form-control" id="nombre_modalidad" name="nombre_modalidad">
+                    <option value="" disabled selected>Seleccionar modalidad</option>
+                    <option value="Presencial" <%= modalidad.nombre_modalidad == 'Presencial' ? 'selected' : '' %>>Presencial</option>
+                    <option value="Virtual" <%= modalidad.nombre_modalidad == 'Virtual' ? 'selected' : '' %>>Virtual</option>
+                    <option value="Distancia" <%= modalidad.nombre_modalidad == 'Distancia' ? 'selected' : '' %>>Distancia</option>
+                </select>
+            </div>
+            <a href="/mostrar_modalidad" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+
+        </form>
+    </div>
+    <% } %>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

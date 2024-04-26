@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro de Personas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Ingrese sus datos Personales</h1>
+        <form id="registroForm" action="/npersonas" method="POST">
+            <div class="form-group">
+                <label for="id_tipo_documento">Tipo Documento</label>
+                <select class="form-control" id="id_tipo_documento" name="id_tipo_documento" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="DNI">DNI</option>
+                    <option value="Pasaporte">Pasaporte</option>
+                    <option value="Cuenta">Numero De Cuenta</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="numero_documento">Número Documento</label>
+                <input type="text" class="form-control" id="numero_documento" name="numero_documento" required>
+                <small id="numDocumentoHelp" class="form-text text-danger d-none">Solo se aceptan números.</small>
+            </div>
+            <div class="form-group">
+                <label for="nombres_persona">Nombres Persona</label>
+                <input type="text" class="form-control" id="nombres_persona" name="nombres_persona" required>
+                <small id="nombresPersonaHelp" class="form-text text-danger d-none">Solo se aceptan letras.</small>
+            </div>
+            <div class="form-group">
+                <label for="apellidos_persona">Apellidos Persona</label>
+                <input type="text" class="form-control" id="apellidos_persona" name="apellidos_persona" required>
+                <small id="apellidosPersonaHelp" class="form-text text-danger d-none">Solo se aceptan letras.</small>
+            </div>
+            <div class="form-group">
+                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                <small id="fechaNacimientoHelp" class="form-text text-danger d-none">No se permite una fecha futura.</small>
+            </div>
+            <div class="form-group">
+                <label for="genero">Género</label>
+                <select class="form-control" id="genero" name="genero" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenina">Femenina</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input type="text" class="form-control" id="direccion" name="direccion" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" required>
+            </div>
+            <div class="form-group mr-2">
+                <label for="id_universidad">Nombre Universidad</label>
+                <select class="form-control" id="id_universidad" name="id_universidad" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_carrera">Nombre Carrera</label>
+                <select class="form-control" id="id_carrera" name="id_carrera" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                </select>
+            </div>
+            <a href="/mostrar_personas" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('numero_documento').addEventListener('input', function () {
+                var numDocumento = this.value;
+                var numDocumentoHelp = document.getElementById('numDocumentoHelp');
+
+                if (!/^\d+$/.test(numDocumento)) {
+                    numDocumentoHelp.classList.remove('d-none');
+                } else {
+                    numDocumentoHelp.classList.add('d-none');
+                }
+            });
+
+            document.getElementById('nombres_persona').addEventListener('input', function () {
+                var nombresPersona = this.value;
+                var nombresPersonaHelp = document.getElementById('nombresPersonaHelp');
+
+                if (!/^[a-zA-Z]+$/.test(nombresPersona)) {
+                    nombresPersonaHelp.classList.remove('d-none');
+                } else {
+                    nombresPersonaHelp.classList.add('d-none');
+                }
+            });
+
+            document.getElementById('apellidos_persona').addEventListener('input', function () {
+                var apellidosPersona = this.value;
+                var apellidosPersonaHelp = document.getElementById('apellidosPersonaHelp');
+
+                if (!/^[a-zA-Z]+$/.test(apellidosPersona)) {
+                    apellidosPersonaHelp.classList.remove('d-none');
+                } else {
+                    apellidosPersonaHelp.classList.add('d-none');
+                }
+            });
+
+            document.getElementById('fecha_nacimiento').addEventListener('change', function () {
+                var fechaNacimiento = new Date(this.value);
+                var hoy = new Date();
+                hoy.setHours(0, 0, 0, 0);
+                var fechaNacimientoHelp = document.getElementById('fechaNacimientoHelp');
+
+                if (fechaNacimiento >= hoy) {
+                    fechaNacimientoHelp.classList.remove('d-none');
+                } else {
+                    fechaNacimientoHelp.classList.add('d-none');
+                }
+            });
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+    fetch('/mostrar_universidades')
+        .then(response => response.json())
+        .then(universidades => {
+            var selectUniversidad = document.getElementById('id_universidad');
+            universidades.forEach(universidad => {
+                var option = document.createElement('option');
+                option.value = universidad.id_universidad;
+                option.text = universidad.siglas;
+                selectUniversidad.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar las universidades:', error);
+            alert('No se pudieron cargar las universidades. Por favor, intente de nuevo más tarde.');
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var selectUniversidad = document.getElementById('id_universidad');
+    var selectCarrera = document.getElementById('id_carrera');
+
+    selectUniversidad.addEventListener('change', function() {
+        var idUniversidad = this.value;
+        fetch('/mostrar_carreras?id_universidad=' + idUniversidad)
+            .then(response => response.json())
+            .then(carreras => {
+                selectCarrera.innerHTML = ''; // Limpiar las opciones existentes
+                carreras.forEach(carrera => {
+                    var option = document.createElement('option');
+                    option.value = carrera.id_carrera;
+                    option.text = carrera.nombre_carrera;
+                    selectCarrera.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar las carreras:', error);
+                alert('No se pudieron cargar las carreras. Por favor, intente de nuevo más tarde.');
+            });
+        });
+    });
+    </script>
+</body>
+</html>

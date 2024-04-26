@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    
+    <% if(clacen) { %>
+        <div class="container mt-5">
+        
+            <h2 class="mb-4"> Editar Clase Censo </h2>
+            <form action="/editupdateclasecenso/<%= clacen.id_clase_censo %>" method="POST">
+        
+                <div class="form-group">
+                    <label for="id_clase_censo">Codigo de clase censo</label>
+                    <input type="text" class="form-control" id="id_clase_censo" name="id_clase_censo" value="<%= clacen.id_clase_censo %>" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="id_censo">Censo</label>
+                    
+                    <select class="form-control" id="id_censo" name="id_censo">
+                        <option value="">Seleccione Censo</option>
+                        <option value="1" <%= clacen.id_censo == '1' ? 'selected' : '' %>>Values</option>
+                        <option value="4" <%= clacen.id_censo == '4' ? 'selected' : '' %>>Prueba1</option>
+                        <option value="5" <%= clacen.id_censo == '5' ? 'selected' : '' %>>Prueba3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_clase">Clase del Censo</label>
+                    
+                    <select class="form-control" id="id_clase" name="id_clase">
+                        <option value="">Seleccione la Clase</option>
+                        <option value="1" <%= clacen.id_clase == '1' ? 'selected' : '' %>>Introduccion a la Informatica</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_edificio">Edificio</label>
+                    
+                    <select class="form-control" id="id_edificio" name="id_edificio">
+                        <option value="">Seleccione el Edificio</option>
+                        <option value="2" <%= clacen.id_edificio == '2' ? 'selected' : '' %>>C1</option>
+                        <option value="1" <%= clacen.id_edificio == '1' ? 'selected' : '' %>>C2</option>
+                        <option value="3" <%= clacen.id_edificio == '3' ? 'selected' : '' %>>C3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_aula">Aula</label>
+                    
+                    <select class="form-control" id="id_aula" name="id_aula">
+                        <option value="">Seleccione el aula</option>
+                        <option value="1" <%= clacen.id_aula == '1' ? 'selected' : '' %>>101</option>
+                        <option value="2" <%= clacen.id_aula == '2' ? 'selected' : '' %>>102</option>
+                        <option value="3" <%= clacen.id_aula == '3' ? 'selected' : '' %>>103</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_horario">Horario</label>
+                    
+                    <select class="form-control" id="id_horario" name="id_horario">
+                        <option value="">Seleccione el Horario</option>
+                        <option value="1" <%= clacen.id_horario == '1' ? 'selected' : '' %>>0700-0800 Lun-Jue</option>
+                        <option value="2" <%= clacen.id_horario == '2' ? 'selected' : '' %>>0800-0900 Lun-Jue</option>
+                        <option value="3" <%= clacen.id_horario == '3' ? 'selected' : '' %>>0900-1000 Lun-Jue</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_modalidad">Modalidad</label>
+                    
+                    <select class="form-control" id="id_modalidad" name="id_modalidad">
+                        <option value="">Seleccione la modalidad</option>
+                        <option value="1" <%= clacen.id_modalidad == '1' ? 'selected' : '' %>>Presencial</option>
+                        <option value="2" <%= clacen.id_modalidad == '2' ? 'selected' : '' %>>Virtual</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nombre_censo">Seccion</label>
+                    <input type="text" class="form-control" id="seccion" name="seccion" value="<%= clacen.seccion %>" required>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="id_tipo_clase">id_tipo_clase</label>
+                    
+                    <select class="form-control" id="id_tipo_clase" name="id_tipo_clase">
+                        <option value="">Seleccione el tipo de clase</option>
+                        <option value="1" <%= clacen.id_tipo_clase == '1' ? 'selected' : '' %>>Propuesta</option>
+                        <option value="2" <%= clacen.id_tipo_clase == '2' ? 'selected' : '' %>>Sugerida</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_usuario">Usuario</label>
+                    
+                    <select class="form-control" id="id_usuario" name="id_usuario">
+                        <option value="">Seleccione Usuario</option>
+                        <option value="2" <%= clacen.id_usuario == '2' ? 'selected' : '' %>>Ariel</option>
+                    </select>
+                </div>
+
+
+
+                <a href="/mostrarcenso" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Actualizar</button>   
+        
+            </form>
+        </div>
+        <% } %>
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

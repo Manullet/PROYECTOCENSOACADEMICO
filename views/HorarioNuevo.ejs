@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4"> Nuevo Registro </h2>
+        <form action="/HorarioNuevo" method="POST">
+                
+                <div class="form-group">
+                    <label for="hora_inicio">Hora de Inicio</label>
+                    <input type="time" class="form-control" id="hora_inicio" name="hora_inicio" required>
+                    <div id="horaInicioError" class="invalid-feedback"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="hora_final">Hora de Final</label>
+                    <input type="time" class="form-control" id="hora_final" name="hora_final" required>
+                    <div id="horaFinalError" class="invalid-feedback"></div>
+                </div>
+                
+                
+                <script>
+                    // Función para validar las horas
+                    function validarHoras() {
+                        var horaInicio = document.getElementById('hora_inicio').value;
+                        var horaFinal = document.getElementById('hora_final').value;
+                
+                        // Extraer las horas de la hora de inicio y la hora final
+                        var horaInicioSplit = horaInicio.split(':');
+                        var horaFinalSplit = horaFinal.split(':');
+                
+                        // Convertir las horas a números enteros
+                        var horaInicioNum = parseInt(horaInicioSplit[0]);
+                        var horaFinalNum = parseInt(horaFinalSplit[0]);
+                
+                        // Verificar si la hora de inicio y la hora final están dentro del rango permitido (06:00 am - 09:00 pm)
+                        if (horaInicioNum < 6 || horaInicioNum > 21 || horaFinalNum < 6 || horaFinalNum > 21) {
+                            alert('La hora de inicio y la hora final deben estar entre las 06:00 am y las 09:00 pm.');
+                            return false; // Detiene el envío del formulario
+                        }
+                
+                        // Verificar si la diferencia entre la hora de inicio y la hora final es exactamente una hora (60 minutos)
+                        if (horaFinalNum - horaInicioNum !== 1) {
+                            alert('La diferencia entre la hora de inicio y la hora final debe ser exactamente una hora.');
+                            return false; // Detiene el envío del formulario
+                        }
+                
+                        // Verificar si se han ingresado minutos en las horas de inicio y final
+                        if (/:00$/.test(horaInicio) === false || /:00$/.test(horaFinal) === false) {
+                            alert('Por favor, ingresa solo la hora sin minutos.');
+                            return false; // Detiene el envío del formulario
+                        }
+                
+                        // Si todas las validaciones pasan, permitir el envío del formulario
+                        return true;
+                    }
+                
+                    // Agregar un evento de validación cuando se envíe el formulario
+                    document.querySelector('form').addEventListener('submit', function(event) {
+                        if (!validarHoras()) {
+                            event.preventDefault(); // Evita que se envíe el formulario si las horas no son válidas
+                        }
+                    });
+                </script>
+                                  
+            
+                 <div class="form-group">
+                <label for="dias">Días</label>  
+                <select multiple class="form-control" id="dias" name="dias" required>
+                <option value="lunes,martes,miercoles">Lunes, Martes y Miércoles</option>   
+                <option value="lunes,miercoles y jueves">Lunes, Miércoles y Jueves</option>
+                <option value="lunes,martes,miercoles y jueves">Lunes, Martes, Miércoles y Jueves</option>
+                <option value="martes, miercoles y jueves">Martes, Miercoles y Jueves</option>
+                </select>
+                <div id="diasError" class="invalid-feedback"></div>
+                </div>
+                                  
+                                    
+                
+                   
+               
+      
+           
+            <a href="/mostrar_horarios" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

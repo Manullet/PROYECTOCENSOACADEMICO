@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Nuevo Registro</h2>
+        <form action="/EdificioNuevo" method="POST" onsubmit="return validarFormulario()">
+            <!-- Agrega un campo select para seleccionar Edificio -->
+            <div class="form-group">
+                <label for="nombre_edificio">Nombre Edificio</label>
+                <input type="text" class="form-control" id="nombre_edificio" name="nombre_edificio" required>
+                <div id="nombreEdificioError" class="invalid-feedback"></div>
+            </div>
+            <br>
+            <a href="/mostrar_edificios" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Función para validar el formulario en tiempo real
+        function validarFormulario() {
+            var nombreEdificio = document.getElementById("nombre_edificio");
+
+            // Validación de Nombre de Edificio
+            if (nombreEdificio.value.trim() === "") {
+                nombreEdificio.classList.add("is-invalid");
+                document.getElementById("nombreEdificioError").textContent = "Ingrese un nombre para el edificio.";
+                return false; // Retorna falso para evitar que el formulario se envíe si hay un error
+            } else {
+                nombreEdificio.classList.remove("is-invalid");
+                document.getElementById("nombreEdificioError").textContent = "";
+                return true; // Retorna verdadero si la validación es exitosa
+            }
+        }
+
+        // Event listener para validar en tiempo real
+        document.getElementById("nombre_edificio").addEventListener("input", validarFormulario);
+    </script>
+</body>
+</html>

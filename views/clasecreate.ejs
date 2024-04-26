@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Clase</h2>
+        <form action="/clasecreate" method="POST" onsubmit="return validarFormulario()">
+               
+            <div class="form-group">
+                <label for="codigo_clase">Código de la clase</label>
+                <input type="text" class="form-control" id="codigo_clase" name="codigo_clase" required>
+                <div id="codigoClaseError" class="invalid-feedback"></div>
+            </div> 
+            <div class="form-group">
+                <label for="nombre_clase">Nueva Clase</label>
+                <input type="text" class="form-control" id="nombre_clase" name="nombre_clase" required>
+                <div id="nombreClaseError" class="invalid-feedback"></div>
+            </div>
+            <br>
+            <a href="/mostrar_clases" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Función para validar el formulario en tiempo real
+        function validarFormulario() {
+            var idCarrera = document.getElementById("id_carrera");
+            var codigoClase = document.getElementById("codigo_clase");
+            var nombreClase = document.getElementById("nombre_clase");
+
+            // Validación de ID de Carrera (solo números)
+            if (!/^\d+$/.test(idCarrera.value)) {
+                idCarrera.classList.add("is-invalid");
+                document.getElementById("idCarreraError").textContent = "El ID de carrera solo debe contener números.";
+            } else {
+                idCarrera.classList.remove("is-invalid");
+                document.getElementById("idCarreraError").textContent = "";
+            }
+
+            // Validación de Código de Clase (números y letras)
+            if (!/^[A-Za-z0-9]+$/.test(codigoClase.value)) {
+                codigoClase.classList.add("is-invalid");
+                document.getElementById("codigoClaseError").textContent = "El código de clase debe contener caracteres alfanuméricos.";
+            } else {
+                codigoClase.classList.remove("is-invalid");
+                document.getElementById("codigoClaseError").textContent = "";
+            }
+
+            // Validación de Nombre de Clase (solo letras)
+            if (!/^[A-Za-z\s]+$/.test(nombreClase.value)) {
+                nombreClase.classList.add("is-invalid");
+                document.getElementById("nombreClaseError").textContent = "El nombre de clase solo debe contener letras.";
+            } else {
+                nombreClase.classList.remove("is-invalid");
+                document.getElementById("nombreClaseError").textContent = "";
+            }
+
+            return !(idCarrera.classList.contains("is-invalid") || codigoClase.classList.contains("is-invalid") || nombreClase.classList.contains("is-invalid"));
+        }
+
+        // Event listeners para validar en tiempo real
+        document.getElementById("id_carrera").addEventListener("input", function() {
+            var idCarrera = document.getElementById("id_carrera");
+            if (!/^\d+$/.test(idCarrera.value)) {
+                document.getElementById("idCarreraError").textContent = "El ID de carrera solo debe contener números.";
+            } else {
+                document.getElementById("idCarreraError").textContent = "";
+            }
+        });
+
+        document.getElementById("codigo_clase").addEventListener("input", function() {
+            var codigoClase = document.getElementById("codigo_clase");
+            if (!/^[A-Za-z0-9]+$/.test(codigoClase.value)) {
+                document.getElementById("codigoClaseError").textContent = "El código de clase debe contener caracteres alfanuméricos.";
+            } else {
+                document.getElementById("codigoClaseError").textContent = "";
+            }
+        });
+
+        document.getElementById("nombre_clase").addEventListener("input", function() {
+            var nombreClase = document.getElementById("nombre_clase");
+            if (!/^[A-Za-z\s]+$/.test(nombreClase.value)) {
+                document.getElementById("nombreClaseError").textContent = "El nombre de clase solo debe contener letras.";
+            } else {
+                document.getElementById("nombreClaseError").textContent = "";
+            }
+        });
+    </script>
+</body>
+</html>

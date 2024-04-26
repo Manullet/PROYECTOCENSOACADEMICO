@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <% if(user) { %>
+    <div class="container mt-5">
+
+        <h2 class="mb-4">Desabilitar Usuarios</h2>
+        <form action="/editupdate/<%= user.id_usuario %>" method="POST">
+
+            <input id ="id_usuario" name="id_usuario" value="<%= user.id_usuario %>" hidden>
+            
+            <div class="form-group">
+                <label for="nombreCompleto">Nombre Completo</label>
+                <input type="text" class="form-control" id="nombres_persona" name="nombres_persona" value="<%= user.nombres_persona %>" required>
+            </div>
+            <div class="form-group">
+                <label for="nombreCompleto">Apellidos</label>
+                <input type="text" class="form-control" id="apellidos_persona" name="apellidos_persona" value="<%= user.apellidos_persona %>" required>
+            </div>
+            <div class="form-group">
+                <label for="nombreUsuario">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" value="<%= user.nombre_usuario %>"  required>
+            </div>
+            <div class="form-group">
+                <label for="correoElectronico">Correo Electrónico</label>
+                <input type="email" class="form-control" id="correo" name="correo"  value="<%= user.correo %>" required>
+            </div>
+            
+            <br>
+            <div class="form-group">
+                <label for="tipoUsuario">Tipo de Usuario</label>
+                <!-- Agrega un campo select para seleccionar el tipo de usuario -->
+                <select class="form-control" id="tipo_rol" name="tipo_rol">
+                    <option value="">Seleccione</option>
+                    <option value="maestro" <%= user.tipo_rol == 'maestro' ? 'selected' : '' %>>Maestro</option>
+                    <option value="alumno" <%= user.tipo_rol == 'alumno' ? 'selected' : '' %>>Alumno</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="estado">Estado</label>
+                <!-- Agrega un campo select para seleccionar el estado del usuario -->
+                <select class="form-control" id="estado" name="estado">
+                    <option value="">Seleccione</option>
+                    <option value="activo" <%= user.estado == 'activo' ? 'selected' : '' %>>Activo</option>
+                    <option value="inactivo" <%= user.estado == 'inactivo' ? 'selected' : '' %>>Inactivo</option>
+                </select>
+            </div>
+            <div>
+                <a href="/mostrarusuarios" type="button" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guadar</button>   
+
+            </div>
+               
+        </form>
+    </div>
+    <% } %>
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

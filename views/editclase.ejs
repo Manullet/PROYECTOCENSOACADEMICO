@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    
+    <% if(clase) { %>
+        <div class="container mt-5">
+        
+            <h2 class="mb-4"> Editar clase </h2>
+            <form action="/editupdateclase/<%= clase.id_clase %>" method="POST">
+
+                <div class="form-group">
+                    <label for="id_clase">ID de la Clase</label>
+                    <input type="text" class="form-control" id="id_clase" name="id_clase" value="<%= clase.id_clase %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_clase">ID de la Clase</label>
+                    <input type="text" class="form-control" id="id_clase" name="id_clase" value="<%= clase.id_clase %>" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="codigo_clase">Codigo de la Carrera</label>
+                    <input type="text" class="form-control" id="codigo_clase" name="codigo_clase" value="<%= clase.codigo_clase %>" required>
+                </div>
+
+        
+                <div class="form-group" id="nombre_clase">
+                    <label for="nombre_clase">Nueva Clase</label>
+                    <input type="text" class="form-control" id="nombre_clase" name="nombre_clase">
+                </div>
+                <a href="/mostrarclase" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Actualizar</button>   
+        
+            </form>
+        </div>
+        <% } %>
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

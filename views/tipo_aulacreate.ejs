@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4"> Tipo Aula </h2>
+        <form action="/tipo_aulacreate" method="POST" onsubmit="return validarFormulario()">
+            <div class="form-group">
+                <label for="nombre_tipo_aula">Tipo de aula</label>
+                <select class="form-control" id="nombre_tipo_aula" name="nombre_tipo_aula" required>
+                    <option value="">Seleccione Su Tipo de Aula</option>
+                    <option value="Aula">Aula</option>
+                    <option value="Laboratorio">Laboratorio</option>
+                    <option value="Auditurioum">Auditurioum</option>
+                    <option value="Sala Multimedia">Sala Multimedia</option>
+                </select>
+            </div>
+            <br>
+            <a href="/mostrartipos_aulas" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function validarFormulario() {
+            var idTipoAula = document.getElementById("id_tipo_aula");
+            var nombreTipoAula = document.getElementById("nombre_tipo_aula");
+
+            // Validación de campos vacíos
+            if (idTipoAula.value.trim() === '' || nombreTipoAula.value.trim() === '') {
+                alert("Por favor, llene todos los campos.");
+                return false;
+            }
+
+            // Validación de Código de tipo aula (solo números)
+            if (!/^\d+$/.test(idTipoAula.value)) {
+                idTipoAula.classList.add("is-invalid");
+                document.getElementById("idTipoAulaError").textContent = "El código de tipo aula solo debe contener números.";
+                return false;
+            } else {
+                idTipoAula.classList.remove("is-invalid");
+                document.getElementById("idTipoAulaError").textContent = "";
+            }
+
+            // Validación de Tipo de aula (debe seleccionar una opción)
+            if (nombreTipoAula.value === '') {
+                alert("Por favor, seleccione una opción en Tipo de aula.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

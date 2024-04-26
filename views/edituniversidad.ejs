@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    
+    <% if(uni) { %>
+        <div class="container mt-5">
+        
+            <h2 class="mb-4"> Editar Universidad </h2>
+            <form action="/editupdateuniversidad/<%= uni.id_universidad %>" method="POST">
+        
+                <div class="form-group">
+                    <label for="id_universidad">Codigo de la Universidad</label>
+                    <input type="text" class="form-control" id="id_universidad" name="id_universidad" value="<%= uni.id_universidad %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="siglas">Siglas Universidad</label>
+                    <select class="form-control" id="siglas" name="siglas">
+                        <option value="">Seleccione las Siglas de su Universidad</option>
+                        <option value="UNAH" <%= uni.siglas == 'UNAH' ? 'selected' : '' %>>UNAH</option>
+                        <option value="UPNFM" <%= uni.siglas  == 'UPNFM' ? 'selected' : '' %>>UPNFM</option>
+                        <option value="UNA" <%= uni.siglas == 'UNA' ? 'selected' : '' %>>UNA</option>
+                        <option value="UDH" <%= uni.siglas== 'UDH' ? 'selected' : '' %>>UDH</option>
+                        <option value="UNACIFOR" <%= uni.siglas == 'UNACIFOR' ? 'selected' : '' %>>UNACIFOR</option>
+                        <option value="CEDAC" <%= uni.siglas == 'CEDAC' ? 'selected' : '' %>>CEDAC</option>
+                        <option value="CURLA" <%= uni.siglas  == 'CURLA' ? 'selected' : '' %>>CURLA</option>
+                        <option value="CURNO" <%= uni.siglas == 'CURNO' ? 'selected' : '' %>>CURNO</option>
+                    </select>
+                </div>
+          
+                   <label for="siglas">Nombres Universidad</label>
+                    <select class="form-control" id="nombre_universidad" name="nombre_universidad">
+                        <option value="">Seleccione Su Universidad</option>
+                        <option value="Universidad Nacional Autónoma de Honduras" <%= uni.nombre_universidad == 'Universidad Nacional Autónoma de Honduras(UNAH)' ? 'selected' : '' %>>Universidad Nacional Autónoma de Honduras(UNAH)</option>
+                        <option value="Universidad Pedagógica Nacional Francisco Morazán" <%= uni.nombre_universidad == 'Universidad Pedagógica Nacional Francisco Morazán(UPNFM)' ? 'selected' : '' %>>Universidad Pedagógica Nacional Francisco Morazán(UPNFM)</option>
+                        <option value="Universidad Nacional de Agricultura" <%= uni.nombre_universidad == 'Universidad Nacional de Agricultura(UNA)' ? 'selected' : '' %>>Universidad Nacional de Agricultura(UNA)</option>
+                        <option value="Universidad de Defensa de Honduras" <%= uni.nombre_universidad == 'Universidad de Defensa de Honduras(UDH)' ? 'selected' : '' %>>Universidad de Defensa de Honduras(UDH)</option>
+                        <option value="Universidad Nacional de Ciencias Forestales" <%= uni.nombre_universidad == 'Universidad Nacional de Ciencias Forestales(UNACIFOR)' ? 'selected' : '' %>>Universidad Nacional de Ciencias Forestales(UNACIFOR)</option>
+                        <option value="Centro de Diseño Arquitectura y Construcción" <%= uni.nombre_universidad == 'Centro de Diseño Arquitectura y Construcción(CEDAC)' ? 'selected' : '' %>>Centro de Diseño Arquitectura y Construcción(CEDAC)</option>
+                        <option value="Centro Universitario Regional del Litoral Atlántico" <%= uni.nombre_universidad == 'Centro Universitario Regional del Litoral Atlántico (CURLA)' ? 'selected' : '' %>>Centro Universitario Regional del Litoral Atlántico (CURLA)</option>
+                        <option value="Centro Universitario Regional del Nor-Oriente" <%= uni.nombre_universidad == 'Centro Universitario Regional del Nor-Oriente (CURNO)' ? 'selected' : '' %>>Centro Universitario Regional del Nor-Oriente (CURNO)</option>
+                    </select>
+                </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <a href="/mostraruniversidad"" type="button" class="btn btn-secondary mr-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+            </form>
+        </div>
+        <% } %>
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Agrega estilos CSS personalizados -->
+    <style>
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none; /* Ocultar mensajes de error inicialmente */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Registrarse</h2>
+        <h4 class="mb-1">Datos Personales</h4>
+        <form id="registroForm" action="/register" method="POST">
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="form-group mr-2">
+                    <label for="id_tipo_documento">Tipo Documento</label>
+                    <select class="form-control" id="id_tipo_documento" name="id_tipo_documento" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="DNI">DNI</option>
+                        <option value="Pasaporte">Pasaporte</option>
+                        <option value="Cuenta">Numero De Cuenta</option>
+                    </select>
+                </div>
+                <div class="form-group mr-2">
+                    <label for="numero_documento">Número Documento</label>
+                    <input type="text" class="form-control" id="numero_documento" name="numero_documento" required pattern="^\d+(-?\d+)*$" title="Por favor, ingrese solo números y guiones.">
+                </div>
+            </div>                                           
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="form-group mr-2">
+                    <label for="nombres_persona">Nombres</label>
+                    <input type="text" class="form-control" id="nombres_persona" name="nombres_persona" required pattern="^[a-zA-Z\s]+$" title="Por favor, ingrese solo letras y espacios.">
+                </div>
+                <div class="form-group mr-2">
+                    <label for="apellidos_persona">Apellidos</label>
+                    <input type="text" class="form-control" id="apellidos_persona" name="apellidos_persona" required pattern="^[a-zA-Z\s]+$" title="Por favor, ingrese solo letras y espacios.">
+                </div>
+            </div>            
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="form-group mr-2">
+                    <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                    <small id="fechaNacimientoHelp" class="form-text text-danger d-none">No se permite una fecha futura.</small>
+                </div>
+                <div class="form-group">
+                    <label for="genero">Género</label>
+                    <select class="form-control" id="genero" name="genero" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenina">Femenina</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input type="text" class="form-control" id="direccion" name="direccion" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" required pattern="^\d+$" title="Por favor, ingrese solo números.">
+            </div>            
+            <div class="form-group">
+                <label for="nombreUsuario">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
+                <span id="errorNombreUsuario" class="error-message">El nombre de usuario solo debe contener letras y números.</span>
+            </div>
+            <div class="form-group">
+                <label for="correoElectronico">Correo Electrónico</label>
+                <input type="email" class="form-control" id="correo" name="correo" required>
+                <span id="errorCorreo" class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="contrasena">Contraseña</label>
+                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                <span id="errorContrasena" class="error-message">La contraseña debe contener al menos 8 caracteres con al menos una letra minúscula, una letra mayúscula, un número y un carácter especial.</span>
+            </div>
+            <div class="form-group">
+                <label for="tipoUsuario">Tipo de Usuario</label>
+                <select class="form-control" id="tipo_rol" name="tipo_rol" required>
+                    <option value="" disabled selected>Seleccione</option>
+                </select>
+                <span id="errorTipoRol" class="error-message">Seleccione el tipo de usuario.</span>
+            </div>
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="form-group mr-2">
+                    <label for="id_universidad">Nombre Universidad</label>
+                    <select class="form-control" id="id_universidad" name="id_universidad" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="id_carrera">Nombre Carrera</label>
+                    <select class="form-control" id="id_carrera" name="id_carrera" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                    </select>
+                </div>
+            </div>
+            <input type="hidden" id="estado" name="estado" value="activo">
+            <a href="/login" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+        </form>
+    </div>
+
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('registroForm');
+    
+            form.addEventListener('submit', function (event) {
+                const nombreUsuario = document.getElementById('nombre_usuario').value;
+                const contrasena = document.getElementById('contrasena').value;
+    
+                const nombreUsuarioRegex = /^[A-Za-z0-9._-]+$/; // Permitir letras, números, puntos, guiones bajos y otros caracteres
+                const contrasenaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
+                let valid = true;
+    
+                if (!nombreUsuarioRegex.test(nombreUsuario)) {
+                    document.getElementById('errorNombreUsuario').style.display = 'block';
+                    valid = false;
+                } else {
+                    document.getElementById('errorNombreUsuario').style.display = 'none';
+                }
+
+    
+                if (!valid) {
+                    event.preventDefault(); // Evitar enviar el formulario si no es válido
+                }
+            });
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('numero_documento').addEventListener('input', function () {
+                var numDocumento = this.value;
+                var numDocumentoHelp = document.getElementById('numDocumentoHelp');
+
+                if (!/^\d+$/.test(numDocumento)) {
+                    numDocumentoHelp.classList.remove('d-none');
+                } else {
+                    numDocumentoHelp.classList.add('d-none');
+                }
+            });
+
+            document.getElementById('nombres_persona').addEventListener('input', function () {
+                var nombresPersona = this.value;
+                var nombresPersonaHelp = document.getElementById('nombresPersonaHelp');
+
+                if (!/^[a-zA-Z]+$/.test(nombresPersona)) {
+                    nombresPersonaHelp.classList.remove('d-none');
+                } else {
+                    nombresPersonaHelp.classList.add('d-none');
+                }
+            });
+
+            document.getElementById('apellidos_persona').addEventListener('input', function () {
+                var apellidosPersona = this.value;
+                var apellidosPersonaHelp = document.getElementById('apellidosPersonaHelp');
+
+                if (!/^[a-zA-Z]+$/.test(apellidosPersona)) {
+                    apellidosPersonaHelp.classList.remove('d-none');
+                } else {
+                    apellidosPersonaHelp.classList.add('d-none');
+                }
+            });
+
+        });
+
+        document.getElementById('registroForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Previene el envío del formulario por defecto
+
+                var fechaNacimiento = new Date(document.getElementById('fecha_nacimiento').value);
+                var fechaActual = new Date();
+                var fechaLimite = new Date();
+                fechaLimite.setFullYear(fechaActual.getFullYear() - 16);
+
+                if (fechaNacimiento > fechaLimite) {
+                    // Formatea la fecha límite para mostrarla en el mensaje de error
+                    var fechaLimiteFormateada = fechaLimite.toLocaleDateString();
+                    document.getElementById('fechaNacimientoHelp').textContent = "No se permite esta fecha. Debe ser antes de: " + fechaLimiteFormateada + ".";
+                    document.getElementById('fechaNacimientoHelp').classList.remove('d-none');
+                    // Aquí puedes mostrar un mensaje de error o realizar otras acciones
+                } else {
+                    // Si la fecha es válida, puedes proceder con el envío del formulario
+                    this.submit(); // Envía el formulario
+                }
+            });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    fetch('/mostrar_roles')
+        .then(response => response.json())
+        .then(roles => {
+            var selectRol = document.getElementById('tipo_rol');
+            roles.forEach(rol => {
+                // Verifica si el rol es "Admin"
+                if (rol.rol !== 'Admin') {
+                    var option = document.createElement('option');
+                    option.value = rol.id_rol;
+                    option.text = rol.rol;
+                    selectRol.appendChild(option);
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar los roles:', error);
+            alert('No se pudieron cargar los roles. Por favor, intente de nuevo más tarde.');
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    fetch('/mostrar_universidades')
+        .then(response => response.json())
+        .then(universidades => {
+            var selectUniversidad = document.getElementById('id_universidad');
+            universidades.forEach(universidad => {
+                var option = document.createElement('option');
+                option.value = universidad.id_universidad;
+                option.text = universidad.siglas;
+                selectUniversidad.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar las universidades:', error);
+            alert('No se pudieron cargar las universidades. Por favor, intente de nuevo más tarde.');
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var selectUniversidad = document.getElementById('id_universidad');
+    var selectCarrera = document.getElementById('id_carrera');
+
+    selectUniversidad.addEventListener('change', function() {
+        var idUniversidad = this.value;
+        fetch('/mostrar_carreras?id_universidad=' + idUniversidad)
+            .then(response => response.json())
+            .then(carreras => {
+                selectCarrera.innerHTML = ''; // Limpiar las opciones existentes
+                carreras.forEach(carrera => {
+                    var option = document.createElement('option');
+                    option.value = carrera.id_carrera;
+                    option.text = carrera.nombre_carrera;
+                    selectCarrera.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar las carreras:', error);
+                alert('No se pudieron cargar las carreras. Por favor, intente de nuevo más tarde.');
+            });
+        });
+    });
+
+
+    </script>
+    
+
+</body>
+</html>

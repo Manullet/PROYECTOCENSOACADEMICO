@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    
+    <% if(carre) { %>
+        <div class="container mt-5">
+
+            <h2 class="mb-4"> Editar carrera </h2>
+            <form action="/editupdatecarrera/<%= carre.id_carrera %>" method="POST">
+       
+                <div class="form-group">
+                    
+                    <input hidden type="text" class="form-control" id="id_carrera" name="id_carrera" value="<%= carre.id_carrera %>" required >
+                </div>
+                
+                <div class="form-group">
+                    <label for= id_universidad"> Universidad</label>
+                    <select class="form-control" id="id_universidad" name="id_universidad" value=" "  onload="DOMContentLoaded()" required></select>
+                </div>
+                         
+                
+                <div class="form-group">
+                    <label for="nombre_carrera">Nombre de la Carrera</label>
+                    <input type="text" class="form-control" id="nombre_carrera" name="nombre_carrera" value="<%= carre.nombre_carrera %>" required>
+                    <div id="nombreCarreraError" class="invalid-feedback"></div>
+                </div>
+        
+                <a href="/mostrar_carrera" type="button" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Actualizar</button>   
+        
+            </form> 
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+            fetch('/mostrar_universidades')
+                .then(response => response.json())
+                .then(universidades => {
+                    var selectUniversidad = document.getElementById('id_universidad');
+                    universidades.forEach(universidad => {
+                        var option = document.createElement('option');
+                        option.value = universidad.id_universidad;
+                        option.text = universidad.siglas;
+                        selectUniversidad.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar las universidades:', error);
+                    alert('No se pudieron cargar las universidades. Por favor, intente de nuevo más tarde.');
+                });
+            });
+                </script>
+        </div>
+        <% } %>
+
+
+        
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

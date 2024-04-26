@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Carga Academica</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Formulario Carga Academica</h1>
+        <form id="cargaAcademicaForm" action="/CargaAcademicaCreate" method="POST">
+            <div class="form-group">
+                <label for="id_usuario">ID Usuario</label>
+                <select class="form-control" id="id_usuario" name="id_usuario" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_persona" class="d-none">ID Persona</label>
+                <input type="hidden" class="form-control" id="id_persona" name="id_persona" required>
+            </div>            
+            <div class="form-group">
+                <label for="id_clase">ID Clase</label>
+                <select class="form-control" id="id_clase" name="id_clase" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_edificio">ID Edificios</label>
+                <select class="form-control" id="id_edificio" name="id_edificio" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_aula">ID Aula</label>
+                <select class="form-control" id="id_aula" name="id_aula" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_horario">ID Horarios</label>
+                <select class="form-control" id="id_horario" name="id_horario" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_modalidad">ID Modalidad</label>
+                <select class="form-control" id="id_modalidad" name="id_modalidad" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cupos">Cupos</label>
+                <input type="number" class="form-control" id="cupos" name="cupos" readonly required>
+            </div>
+            <div class="form-group">
+                <label for="semestre">Semestre</label>
+                <select class="form-control" id="semestre" name="semestre" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="I PAC">I PAC</option>
+                    <option value="II PAC">II PAC</option>
+                    <option value="III PAC">III PAC</option>
+                </select>
+            </div>            
+            <div class="form-group">
+                <label for="ano">Año</label>
+                <input type="number" class="form-control" id="ano" name="ano" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch para los usuarios
+            fetch('/usuarios1')
+                .then(response => response.json())
+                .then(usuarios => {
+                    var selectUsuario = document.getElementById('id_usuario');
+                    var inputPersona = document.getElementById('id_persona');
+
+                    usuarios.forEach(usuario => {
+                        var option = document.createElement('option');
+                        option.value = usuario.id_usuario;
+                        option.text = usuario.nombres_persona;
+                        selectUsuario.appendChild(option);
+                    });
+
+                    selectUsuario.addEventListener('change', function () {
+                        var idUsuarioSeleccionado = this.value;
+                        var usuarioSeleccionado = usuarios.find(usuario => usuario.id_usuario == idUsuarioSeleccionado);
+                        inputPersona.value = usuarioSeleccionado.id_persona;
+                        console.log("id_usuario:", idUsuarioSeleccionado);
+                        console.log("id_persona:", usuarioSeleccionado.id_persona);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar los usuarios:', error);
+                    alert('No se pudieron cargar los usuarios. Por favor, intente de nuevo más tarde.');
+                });
+
+            // Fetch para las clases
+            fetch('/mostrar_clases1')
+                .then(response => response.json())
+                .then(Clases => {
+                    var selectClase = document.getElementById('id_clase');
+                    Clases.forEach(Clase => {
+                        var option = document.createElement('option');
+                        option.value = Clase.id_clase;
+                        option.text = Clase.nombre_clase;
+                        selectClase.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar las clases:', error);
+                    alert('No se pudieron cargar las clases. Por favor, intente de nuevo más tarde.');
+                });
+
+            // Fetch para los edificios
+            fetch('/edificios1')
+                .then(response => response.json())
+                .then(edificios => {
+                    var selectEdificio = document.getElementById('id_edificio');
+                    edificios.forEach(edificio => {
+                        var option = document.createElement('option');
+                        option.value = edificio.id_edificio;
+                        option.text = edificio.nombre_edificio;
+                        selectEdificio.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar los edificios:', error);
+                    alert('No se pudieron cargar los edificios. Por favor, intente de nuevo más tarde.');
+                });
+
+            // Fetch para las aulas
+            fetch('/aulas1')
+                .then(response => response.json())
+                .then(aulas => {
+                    var selectAula = document.getElementById('id_aula');
+                    aulas.forEach(aula => {
+                        var option = document.createElement('option');
+                        option.value = aula.numero_aula;
+                        option.text = aula.numero_aula;
+                        selectAula.appendChild(option);
+                    });
+
+                    // Escuchar el cambio en el select de aulas
+                    selectAula.addEventListener('change', function () {
+                        // Buscar el aula seleccionado utilizando numero_aula
+                        var numeroAulaSeleccionada = this.value;
+                        var aulaSeleccionada = aulas.find(aula => aula.numero_aula == numeroAulaSeleccionada);
+
+                        // Actualizar el campo de entrada de cupos con la capacidad del aula seleccionado
+                        var inputCupos = document.getElementById('cupos');
+                        inputCupos.value = aulaSeleccionada.capacidad; // Asegúrate de que 'capacidad' es el nombre correcto del campo en tus datos
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar las aulas:', error);
+                    alert('No se pudieron cargar las aulas. Por favor, intente de nuevo más tarde.');
+                });
+            // Fetch para los horarios
+            fetch('/horarios1')
+                .then(response => response.json())
+                .then(horarios => {
+                    var selectHorario = document.getElementById('id_horario');
+                    horarios.forEach(horario => {
+                        var option = document.createElement('option');
+                        option.value = horario.id_horario; // Asegúrate de que 'id_horario' es el nombre correcto del campo en tus datos
+                        option.text = horario.dias; // Asegúrate de que 'nombre_horario' es el nombre correcto del campo en tus datos
+                        selectHorario.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar los horarios:', error);
+                    alert('No se pudieron cargar los horarios. Por favor, intente de nuevo más tarde.');
+                });
+
+            // Fetch para las modalidades
+            fetch('/modalidades1')
+                .then(response => response.json())
+                .then(modalidades => {
+                    var selectModalidad = document.getElementById('id_modalidad');
+                    modalidades.forEach(modalidad => {
+                        var option = document.createElement('option');
+                        option.value = modalidad.id_modalidad; // Asegúrate de que 'id_modalidad' es el nombre correcto del campo en tus datos
+                        option.text = modalidad.nombre_modalidad; // Asegúrate de que 'nombre_modalidad' es el nombre correcto del campo en tus datos
+                        selectModalidad.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar las modalidades:', error);
+                    alert('No se pudieron cargar las modalidades. Por favor, intente de nuevo más tarde.');
+                });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
