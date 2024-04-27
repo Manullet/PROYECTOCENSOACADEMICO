@@ -23,6 +23,6 @@ app.use(cookieParser())
 //llamar al router
 app.use('/',require('./routers/router'))
 
-app.listen(5000, ()=>{
-    console.log("Server en  http://localhost:5000")
+app.listen(3000, ()=>{
+    console.log("Server en  http://localhost:3000")
 })
