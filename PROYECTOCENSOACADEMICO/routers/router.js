@@ -8,20 +8,20 @@ const conexion = require('../database/db')
 
 //rotas para el metodo authcontrollers
    //rutas para el menu
-   router.get('/', (req, res) => {
+  // router.get('/', (req, res) => {
 
-    res.render('index') 
-   })
+   // res.render('index') 
+   //})
 
-   router.get('/indexA', (req, res) => {
+  // router.get('/indexA', (req, res) => {
 
-    res.render('indexA') 
-   })
+   // res.render('indexA') 
+   //})
 
-   router.get('/indexM', (req, res) => {
+  // router.get('/indexM', (req, res) => {
 
-    res.render('indexM') 
-   })
+   // res.render('indexM') 
+  // })
     //rotas para el LOGIN
     router.get('/login', (req, res) => {
       
