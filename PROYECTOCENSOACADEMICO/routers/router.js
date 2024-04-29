@@ -10,7 +10,7 @@ const conexion = require('../database/db')
    //rutas para el menu
    router.get('/', (req, res) => {
 
-    res.render('login') 
+    res.render('index') 
    })
 
    router.get('/indexA', (req, res) => {
